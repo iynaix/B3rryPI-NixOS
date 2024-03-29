@@ -10,23 +10,20 @@
       ./hardware-configuration.nix
       ./../../nixosModules/default.nix
     ];
-    
+
   vm.enable = true;
 
   # Home-Manager
+  home-manager = {
+    extraSpecialArgs = {
+      inherit inputs;
+    };
 
-  home-manager."b3rrypi" = {
-    useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs; };  
-    users = {
-      modules = [
-        ./home2.nix
-        inputs.self.outputs.homeManagerModules.default
-      ];
+    users."b3rrypi" = {
+      imports = [ ./home.nix ];
     };
   };
-   
-  
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -128,7 +125,7 @@
     slack
     mongodb-compass
     obsidian
-    winbox 
+    winbox
     discord
   ];
 
@@ -158,7 +155,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-  
+
   # Enabling docker
   virtualisation.docker.enable = true;
   #virtualisation.docker.extraOptions = "--dns 8.8.8.8 --dns 8.8.4.4";
@@ -168,18 +165,18 @@
   #};
   users.extraGroups.docker.members = [ "b3rrypi" ];
   #users.extraGroups.b3rrypi.members = [ "b3rrypi" ];
-  
+
   networking.extraHosts =
   ''
     10.251.220.30 gitlabserver.io
     10.251.220.35 passboltserver.io
-    127.0.0.1  gitlab.example.com  
+    127.0.0.1  gitlab.example.com
   '';
 
   environment.shellInit = ''
     export PATH="/home/b3rrypi/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin:$PATH"
   '';
-  
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }

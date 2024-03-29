@@ -21,7 +21,7 @@
       modules = [
         ./hosts/b3rrypi/configuration.nix
         ./nixosModules
-        #inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.default
       ];
     };
     homeManagerModules.default = ./homeManagerModules;

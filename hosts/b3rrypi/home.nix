@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  import = [ 
+  imports = [
     ./../../homeManagerModules/default.nix
   ];
 
@@ -9,7 +9,7 @@
   # manage.
   home.username = "b3rrypi";
   home.homeDirectory = "/home/b3rrypi";
-  
+
   # Enable cliPrograms
   git.enable = true;
   # This value determines the Home Manager release that your configuration is
